@@ -5,13 +5,17 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 6000;
 
 app.use(cors());
 app.use(express.json());
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// mongoose.connect(uri, { useNewUrlParser: true });
+// mongoose.createConnection(uri, { useNewUrlParser: true });
+
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
